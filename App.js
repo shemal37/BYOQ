@@ -32,22 +32,28 @@ class App extends Component{
       players: players,
       toggleUserScreen: false,
       buttonId: '',
-
+      answers:[]
     }
-    this._onPressButton = this._onPressButton.bind(this)
+    this._onPressButton = this._onPressButton.bind(this);
+    this._onPressSubmit = this._onPressSubmit.bind(this);
   }
   
   _onPressButton(e, buttonId) {
-    //e.preventDefault()
     this.setState({
       toggleUserScreen:true,
       buttonId: buttonId
     })
-    console.log(this.state)
   }
+  _onPressSubmit(e, answer){
+    this.setState({
+      answers: this.state.answers.push(answer)
+    })
+    console.log(this.state.answers)
+  }
+
   render() {
     const player = <Player players={this.state.players} /> 
-    const question = <Question games={this.state.games} questionId={this.state.buttonId} />
+    const question = <Question games={this.state.games} questionId={this.state.buttonId} submit={this._onPressSubmit}/>
     return (
       <>
         <SafeAreaView>

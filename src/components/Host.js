@@ -23,7 +23,6 @@ const Host = (props) => {
                     />
                  ))
             }
-            
         </View>
     </>
     )
