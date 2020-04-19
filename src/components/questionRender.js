@@ -4,9 +4,11 @@ import {
   View,
   Text,
   TextInput,
+  Image,
 
 } from 'react-native';
  import {Button} from 'react-native-elements';
+//const interstellar = require('./Images/interstellar.jpg');
 
 class Question extends Component {
     constructor(props) {
@@ -20,18 +22,27 @@ class Question extends Component {
         this.setState({
             text:text
         })
-        console.log(this.state)
-    }
+    console.log(this.state)
+    } 
     render(){
         return(
             <>
             <View style={styles.questionContainer}>
                     {
-                    this.props.games.map((item) => {
-                        if(item.name === this.props.questionId) {
-                        return <Text key={item.name} style={styles.questionText}>{item.question}</Text>
+                        this.props.games.map((item) => {
+                            if(item.name === this.props.questionId) {
+                                if(item.picture) {
+                                    return (
+                                        <View>
+                                            <Text style={styles.questionText}>Guess the Movie name!</Text>
+                                            <Image source={require('./Images/interstellar.jpg')} style={{width: '100%', height: '50%'}} ></Image>
+                                        </View>
+                                    )
+                                } else {                            
+                                    return  <Text key={item.name} style={styles.questionText}>{item.question}</Text>
+                                }
                         }
-                    })
+                        })
                     }
                     <View style={styles.inputContainer}>
                         <TextInput 
@@ -63,13 +74,14 @@ const styles = StyleSheet.create({
         fontSize: 25,
         color: 'darkcyan',
         textAlign: 'center',
+        paddingBottom: 20,
     },
     inputContainer:{
         paddingBottom: 0,
         margin:10
     },
     buttonContainer:{
-        marginTop: 40,
+        marginTop: 20,
         backgroundColor:'floralwhite',
         borderWidth: .5,
         borderRadius: 6,

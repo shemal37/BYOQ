@@ -92,12 +92,16 @@ class App extends Component{
 
 const styles = StyleSheet.create({
   scrollViewHost: {
-    backgroundColor: Colors.light,
-    height: 400
+    backgroundColor: '#242323' , 
+    height: 400,
+   
+    
   },
   scrollViewPlayer: {
-    backgroundColor: 'wheat',
-    height: 430
+    backgroundColor: '#242323',
+    height: 430,
+    borderTopWidth: 3,
+    borderTopColor: Colors.lighter
   },
   engine: {
     position: 'absolute',
