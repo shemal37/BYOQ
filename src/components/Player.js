@@ -3,6 +3,7 @@ import {
   StyleSheet,
   View,
   //Text,
+  InlineImage,
 } from 'react-native';
 import {Button, Text, withTheme} from 'react-native-elements';
 
@@ -23,11 +24,17 @@ const Player = (props) => {
         </View>
         <Text style={styles.headingContainer}> You will be Battling Against: </Text>
         { 
-            props.players.map((player) => {
+            props.players.map((player,i) => {
                 return (
-                    <View style={ {flexDirection: 'column', justifyContent:'flex-end'}}> 
-                    <Text style={styles.gameHost} key={player.name} > {player.name} </Text>
-                    <Text style={styles.tagline} key={player.name} > {player.tagline} </Text>
+                    <View style={ {flexDirection: 'column', justifyContent:'flex-end'}} key={i}> 
+                    <Text style={styles.gameHost} key={player.name} > {i+1}. {player.name} </Text>
+                    <Text 
+                        style={styles.tagline} key={i} 
+                        numberOfLines={1}
+                        //ellipsizeMode
+                    > 
+                        {player.tagline} 
+                    </Text>
                     </View>
                 )
             })
@@ -35,7 +42,7 @@ const Player = (props) => {
         <View style={styles.buttonContainer}>
             <Button 
             style={styles.button}
-            title={'Let the battle begin!   🚀'}
+            title={'Let the battle begin!  🚀'}
             type= "clear"
             titleStyle={{color:'#c75f46', fontSize:25, fontWeight:'bold',fontFamily: 'Futura-MediumItalic'}}
             > 
@@ -75,16 +82,16 @@ const styles = StyleSheet.create({
         textAlign:'center',
         fontFamily: 'Futura',
         color: 'goldenrod', 
-        fontSize: 20,
-        paddingTop: 5,
+        fontSize: 25,
+        paddingTop: 4,
         textAlign:'center',
         },
         tagline:{
         textAlign:'center',
         fontFamily: 'Futura',
         color: '#c7ebb2', 
-        fontSize: 20,
-        paddingTop: 5,
+        fontSize: 19,
+        paddingTop: 9,
         paddingBottom:5,
         textAlign:'center',
         }

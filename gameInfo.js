@@ -1,29 +1,29 @@
 export const games = [
     {
-        name: 'Monthly Riddle',
-        question: 'What month of the year has 28 days?',
-        answer: 'All of them',
+        name: 'Guess the Movie',
+        question: 'Guess the Movie',
+        answer: 'Avengers 1',
+        timer: 0,
+        picture: true,
+    },
+    {
+        name: 'Name the Weapon',
+        question: 'Name the Weapon \n\n\"A king\'s weapon. Meant to be the greatest in Asgard. In theory, it could even summon the Bifrost.\"',
+        answer: 'Stormbreaker',
         timer: 0,
         picture: false,
     },
     {
-        name: 'Word Play Riddle',
-        question: 'What is one thing that all wise men, regardless of their politics or religion, agree is between heaven and earth?',
-        answer: 'and',
+        name: 'Who said this?',
+        question: 'Who said this?\n\n \"As far as I\'m concerned, that\'s America\'s ass\"',
+        answer: 'Ant-Man',
         timer: 0,
         picture: false,
     },
     {
-        name: 'Today\'s Riddle',
-        question: 'Tomorrow\'s yesterday. Yesterday\'s tomorrow. What is it?',
-        answer: 'Today',
-        timer: 0,
-        picture: false,
-    },
-    {
-        name: 'Gargantua',
-        question: 'interstellar',
-        answer: 'interstellar',
+        name: 'Guess the Avenger',
+        question: 'Guess the Avenger',
+        answer: 'Ironman',
         timer: 0,
         picture: true,
     },
@@ -31,15 +31,15 @@ export const games = [
 
 export const players = [
     {
-        name:'1. Iron Man',
+        name:'Iron Man ',
         tagline:'Genius, Billionaire, Playboy, Philanthropist'
     }, 
     {
-        name:'2. Thor',
+        name:'Thor',
         tagline:'Do I look to be in a gaming mood?'
     }, 
     {
-        name:'3. Hulk',
+        name:'Hulk',
         tagline: 'Hulk Smash'
     },
 ]

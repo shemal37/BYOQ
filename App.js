@@ -12,6 +12,7 @@ import {
 import {Button} from 'react-native-elements';
 import Host from './src/components/Host';
 import Player from './src/components/Player';
+import HostQuestion from './src/components/HostQuestion'
 import {games, players} from './gameInfo.js';
 import Question from './src/components/questionRender';
 
@@ -31,29 +32,48 @@ class App extends Component{
       games: games,
       players: players,
       toggleUserScreen: false,
-      buttonId: '',
-      answers:[]
+      buttonName: '',
+      answers:[],
+      toggleDisabledButton: [false, false, false, false],
+      toggleHostScreen: true,
     }
     this._onPressButton = this._onPressButton.bind(this);
     this._onPressSubmit = this._onPressSubmit.bind(this);
+    this._onPressBack = this._onPressBack.bind(this);
   }
   
-  _onPressButton(e, buttonId) {
+  _onPressButton(e, buttonName, buttonId) {
+    this._onPressBack()
+    this.setState((state) => {
+      const udpatedArray = state.toggleDisabledButton.map((item, j) => {
+        if(j===buttonId) return true;
+        else if (item) return true;
+        else return false;
+      })
+      return {
+        toggleDisabledButton: udpatedArray,
+        toggleUserScreen: true,
+        buttonName: buttonName,
+      }
+    });
+    console.log(buttonId)
+  }
+  _onPressBack(){
     this.setState({
-      toggleUserScreen:true,
-      buttonId: buttonId
+      toggleHostScreen: !this.state.toggleHostScreen
     })
   }
   _onPressSubmit(e, answer){
     this.setState({
       answers: this.state.answers.push(answer)
     })
-    console.log(this.state.answers)
   }
 
   render() {
     const player = <Player players={this.state.players} /> 
-    const question = <Question games={this.state.games} questionId={this.state.buttonId} submit={this._onPressSubmit}/>
+    const question = <Question games={this.state.games} questionId={this.state.buttonName} submit={this._onPressSubmit} />
+    const host = <Host games={this.state.games} click={this._onPressButton} disabled={this.state.toggleDisabledButton} />
+    const hostQuestion = <HostQuestion games={this.state.games} click={this._onPressBack} questionId={this.state.buttonName}/>
     return (
       <>
         <SafeAreaView>
@@ -66,8 +86,7 @@ class App extends Component{
                 <Text style={styles.footer}>Engine: Hermes</Text>
               </View>
             )}
-            
-            <Host games={this.state.games} click={this._onPressButton} />
+            {this.state.toggleHostScreen ? host : hostQuestion}
               {/* <LearnMoreLinks /> */}
           </ScrollView>
 

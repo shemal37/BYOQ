@@ -9,6 +9,13 @@ import {
 } from 'react-native';
  import {Button} from 'react-native-elements';
 //const interstellar = require('./Images/interstellar.jpg');
+const ironman = require('../Images/Ironman1.jpg');
+const avengers = require('../Images/avengers.jpg')
+const randomColor = () =>{
+    const array = ['lightsalmon', 'plum', '#88b3a5', 'goldenrod']
+    const randomNumber = Math.floor(Math.random() * array.length);
+    return array[randomNumber];
+}
 
 class Question extends Component {
     constructor(props) {
@@ -33,9 +40,9 @@ class Question extends Component {
                             if(item.name === this.props.questionId) {
                                 if(item.picture) {
                                     return (
-                                        <View>
-                                            <Text style={styles.questionText}>Guess the Movie name!</Text>
-                                            <Image source={require('./Images/interstellar.jpg')} style={{width: '100%', height: '50%'}} ></Image>
+                                        <View key={item} style={{justifyContent: 'center', textAlign: 'center'}}>
+                                            <Text style={styles.questionText}>{item.question}</Text>
+                                            <Image source={item.name === 'Guess the Movie' ? avengers:ironman} style={styles.stretch} ></Image>
                                         </View>
                                     )
                                 } else {                            
@@ -44,19 +51,24 @@ class Question extends Component {
                         }
                         })
                     }
-                    <View style={styles.inputContainer}>
+                    <View style={styles.inputContainer} >
                         <TextInput 
-                            style={{ height: 40, borderColor: 'gray', borderWidth: 1 }}
+                            style={{ height: 40, borderColor: 'gray', borderWidth: 1, borderRadius:1, width:'85%' }}
                             onChangeText={this._onChange}
-                            placeholder='Write yo answer'
-                            placeholderTextColor = "darkcyan"
+                            placeholder=' Enter your answer'
+                            placeholderTextColor = "gray"
+                            
                         />
                         <Button
-                            style={styles.buttonContainer}
+                            style={{marginTop: 20,
+                                backgroundColor: 'sandybrown',
+                                borderRadius: 10,}}
                             title="Submit"
                             type="clear"
-                            onPress= {(event) => {this.props.submit(event, this.state.text)}}
+                            onPress= {(event) => {this.props.submit(event, this.state.text, 'Captain America')}}
+                            titleStyle={{color:'black', fontSize:25}}
                         />
+                        <Text style={styles.gameName}>Q-up!</Text>
                     </View>
             </View>
             </>
@@ -66,26 +78,30 @@ class Question extends Component {
 const styles = StyleSheet.create({
     questionContainer:{
         margin: 20,
-        padding:20,
-        height:400,
-        justifyContent: 'space-between',
       },
     questionText:{
-        fontSize: 25,
-        color: 'darkcyan',
+        color:'white', 
+        fontSize: 23, 
+        marginBottom: 20,
+        fontWeight: 'bold',
         textAlign: 'center',
-        paddingBottom: 20,
     },
     inputContainer:{
-        paddingBottom: 0,
-        margin:10
+        margin:20,
+        flex:1,
+        alignItems: 'center'
     },
-    buttonContainer:{
-        marginTop: 20,
-        backgroundColor:'floralwhite',
-        borderWidth: .5,
-        borderRadius: 6,
-    }
+    stretch: {
+        width: '100%',
+        height: 220,      
+      },
+      gameName:{
+        fontFamily: 'Futura-MediumItalic',
+        color:'#c75f46', 
+        fontSize: 25,
+        paddingTop: 25,
+        textAlign: 'center'
+    },
 })
 
 export default Question;
