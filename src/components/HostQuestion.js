@@ -10,7 +10,7 @@ import {
 
 } from 'react-native';
 import anim from '../Images/Animate.json';
-import {Button, withTheme} from 'react-native-elements';
+import {Button} from 'react-native-elements';
 const ironman = require('../Images/Ironman1.jpg');
 const avengers = require('../Images/avengers.jpg');
 const array = [ '#9ed4e8', 'lightsalmon', '#ebc86a','#88b3a5', 'lightgoldenrodyellow']
@@ -22,7 +22,7 @@ const HostQuestion = (props) => {
             !props.toggle ? 
             <View style={styles.waitingContainer}>
                 {
-                    props.games.map((item) => {
+                    props.games.map((item,i) => {
                         if(item.name === props.questionId) {
                             if(item.picture) {
                                 return (
@@ -30,7 +30,7 @@ const HostQuestion = (props) => {
                                         justifyContent: 'center', 
                                         textAlign: 'center',
                                         }}>
-                                        <Text style={styles.questionText}>{item.question}</Text>
+                                        <Text key={i} style={styles.questionText}>{item.question}</Text>
                                         <Image source={item.name === 'Guess the Movie' ? avengers:ironman} style={styles.stretch} ></Image>
                                     </View>
                                 )
@@ -92,8 +92,10 @@ const HostQuestion = (props) => {
             {
                 
                 props.playerAnswers.map((player,i) => (
-                    <TouchableOpacity style={{ flexDirection:'row', justifyContent:'center'}}>
-                        <View style={{
+                    <TouchableOpacity key={i} style={{ flexDirection:'row', justifyContent:'center'}}
+                    onPress ={props.clickWon}
+                    >
+                        <View  key={i} style={{
                             padding: 9, 
                             margin: 12,
                             backgroundColor: array[i],
@@ -104,15 +106,20 @@ const HostQuestion = (props) => {
                             <Text>{player.name}</Text>
                             <Text>{player.answer}</Text>
                         </View>
+                       
                     </TouchableOpacity>
                 ))
             }
             <Button
                 title="Next Question"
                 onPress= {() => {props.click()}}
-                style={{marginTop: 20,
-                    backgroundColor: 'sandybrown',
-                    borderRadius: 10,}}
+                type ='clear'
+                style={{padding: 0, 
+                    margin: 20,
+                    backgroundColor:'black',
+                    borderRadius: 30,
+                }}
+                titleStyle={{color:'#c75f46', fontSize:30, fontWeight:'bold',fontFamily: 'Futura-MediumItalic'}}
             /> 
          </View>  
         }
@@ -149,7 +156,7 @@ const styles = StyleSheet.create({
         fontFamily: 'Futura-MediumItalic',
         color:'#c75f46', 
         fontSize: 25,
-        paddingTop: 25,
+        paddingTop: 10,
         textAlign: 'center'
     },
     button: {

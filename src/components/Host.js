@@ -34,6 +34,21 @@ const Host = (props) => {
                     />
                  ))
             }
+            <Button 
+              title="Create Another Game"
+              type="clear"
+              style={{
+                  padding: 2, 
+                  marginTop:30,
+                  marginLeft: 162,
+                  marginRight:10,
+                  backgroundColor: 'black',
+                  borderRadius: 10,
+              }} 
+              onPress={props.anotherGame}
+              >
+                  
+            </Button>
         </View>
     </>
     )

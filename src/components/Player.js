@@ -1,4 +1,5 @@
 import React from 'react';
+import Animation from 'lottie-react-native';
 import {
   StyleSheet,
   View,
@@ -6,13 +7,13 @@ import {
   InlineImage,
 } from 'react-native';
 import {Button, Text, withTheme} from 'react-native-elements';
+import anim from '../Images/Animate.json'
 
-const randomColor = () =>{
-    const array = ['lightsalmon', 'plum', '#88b3a5', 'goldenrod']
-    const randomNumber = Math.floor(Math.random() * array.length);
-    return array[randomNumber];
-}
-
+// const randomColor = () =>{
+//     const array = ['lightsalmon', 'plum', '#88b3a5', 'goldenrod']
+//     const randomNumber = Math.floor(Math.random() * array.length);
+//     return array[randomNumber];
+// }
 const Player = (props) => {
     return(
         <>
@@ -82,7 +83,7 @@ const styles = StyleSheet.create({
         fontFamily: 'Futura',
         color: 'goldenrod', 
         fontSize: 25,
-        paddingTop: 4,
+        paddingTop: 0,
         textAlign:'center',
         },
         tagline:{
@@ -90,7 +91,7 @@ const styles = StyleSheet.create({
         fontFamily: 'Futura',
         color: 'lightsalmon', 
         fontSize: 19,
-        paddingTop: 9,
+        paddingTop: 4,
         paddingBottom:5,
         textAlign:'center',
         }

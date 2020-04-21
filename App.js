@@ -12,8 +12,10 @@ import {
 import {Button} from 'react-native-elements';
 import Host from './src/components/Host';
 import Player from './src/components/Player';
-import HostQuestion from './src/components/HostQuestion'
+import HostQuestion from './src/components/HostQuestion';
+import CreateGame from './src/components/createGame'
 import {games, players} from './gameInfo.js';
+import YouWon from './src/components/YouWon'
 import Question from './src/components/questionRender';
 
 import {
@@ -46,10 +48,14 @@ class App extends Component{
       toggleDisabledButton: [false, false, false, false],
       toggleHostScreen: true,
       toggleHostQuestionScreen: false,
+      toggleWonScreen: false,
+      toggleCreateGame: false,
     }
     this._onPressButton = this._onPressButton.bind(this);
     this._onPressSubmit = this._onPressSubmit.bind(this);
     this._onPressBack = this._onPressBack.bind(this);
+    this._onPressYouWon = this._onPressYouWon.bind(this);
+    this._onPressCreateGame = this._onPressCreateGame.bind(this);
   }
   
   _onPressButton(e, buttonName, buttonId) {
@@ -70,8 +76,9 @@ class App extends Component{
   _onPressBack(){
     this.setState({
       toggleHostScreen: !this.state.toggleHostScreen,
-      toggleHostQuestionScreen: !this.state.toggleHostQuestionScreen
-
+      toggleHostQuestionScreen: !this.state.toggleHostQuestionScreen,
+      toggleUserScreen: !this.state.toggleUserScreen,
+      toggleWonScreen: !this.state.toggleWonScreen,
     })
   }
   _onPressSubmit(e, answer){
@@ -87,12 +94,45 @@ class App extends Component{
     })
     console.log(this.state.answers)
   }
+  _onPressYouWon(e){
+    this.setState({
+      toggleWonScreen:!this.state.toggleWonScreen,
+    })
+  }
+  _onPressCreateGame(){
+    this.setState({
+      toggleCreateGame:!this.state.toggleCreateGame,
+    })
+  }
 
   render() {
     const player = <Player players={this.state.players} /> 
     const question = <Question games={this.state.games} questionId={this.state.buttonName} submit={this._onPressSubmit} />
-    const host = <Host games={this.state.games} click={this._onPressButton} disabled={this.state.toggleDisabledButton} />
-    const hostQuestion = <HostQuestion games={this.state.games} toggle={this.state.toggleHostQuestionScreen} click={this._onPressBack} questionId={this.state.buttonName} playerAnswers={this.state.answers}/>
+    const host = <Host games={this.state.games} click={this._onPressButton} disabled={this.state.toggleDisabledButton} anotherGame={this._onPressCreateGame}/>
+    const hostQuestion = <HostQuestion games={this.state.games} toggle={this.state.toggleHostQuestionScreen} click={this._onPressBack} clickWon={this._onPressYouWon} questionId={this.state.buttonName} playerAnswers={this.state.answers}/>
+
+    const func = () =>{
+    if(this.state.toggleWonScreen){
+      return <YouWon click={this._onPressYouWon}/>
+    } else if (!this.state.toggleUserScreen) {
+      return player
+    } else if (this.state.toggleUserScreen){
+      return question
+    } else if(this.state.toggleCreateGame) {
+      return <Text></Text>
+    }
+  }
+
+  const hostFunc = () => {
+    if(this.state.toggleCreateGame){
+      return <CreateGame />
+    } else if(this.state.toggleHostScreen){
+      return host;
+    } else if (!this.state.toggleHostScreen) {
+      return hostQuestion;
+    } 
+  }
+    
     return (
       <>
         <SafeAreaView>
@@ -105,21 +145,25 @@ class App extends Component{
                 <Text style={styles.footer}>Engine: Hermes</Text>
               </View>
             )}
-            {this.state.toggleHostScreen ? host : hostQuestion}
+            {hostFunc()}
+            {/* {this.state.toggleCreateGame ?<CreateGame />: null}
+            {this.state.toggleHostScreen ? host : hostQuestion} */}
               {/* <LearnMoreLinks /> */}
+            
           </ScrollView>
 
           <ScrollView
             contentInsetAdjustmentBehavior="automatic"
             style={styles.scrollViewPlayer}>
-            {/* <Header /> */}
+
             {global.HermesInternal == null ? null : (
               <View style={styles.engine}>
                 <Text style={styles.footer}>Engine: Hermes</Text>
               </View>
             )}
             <View>
-            { !this.state.toggleUserScreen ? player :  question }
+            { func()
+            }
             </View>
           </ScrollView>
         </SafeAreaView>

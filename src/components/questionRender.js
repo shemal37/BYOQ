@@ -42,7 +42,7 @@ class Question extends Component {
                                 if(item.picture) {
                                     return (
                                         <View key={item} style={{justifyContent: 'center', textAlign: 'center'}}>
-                                            <Text style={styles.questionText}>{item.question}</Text>
+                                            <Text key={item} style={styles.questionText}>{item.question}</Text>
                                             <Image source={item.name === 'Guess the Movie' ? avengers:ironman} style={styles.stretch} ></Image>
                                         </View>
                                     )
@@ -61,13 +61,16 @@ class Question extends Component {
                             color = {'white'}
                         />
                         <Button
-                            style={{marginTop: 20,
+                            style={{marginTop:25,
                                 backgroundColor: 'sandybrown',
-                                borderRadius: 10,}}
+                                borderRadius: 10,
+                                padding:4,
+                                width:120}
+                                }
                             title="Submit"
                             type="clear"
                             onPress= {(event) => {this.props.submit(event, this.state.text, 'Captain America')}}
-                            titleStyle={{color:'black', fontSize:25}}
+                            titleStyle={{color:'black', fontSize:22}}
                         />
                         <Text style={styles.gameName}>Q-up!</Text>
                     </View>
