@@ -33,9 +33,19 @@ class App extends Component{
       players: players,
       toggleUserScreen: false,
       buttonName: '',
-      answers:[],
+      answers:[
+        {name: 'Captain America',
+        answer: 'Avengers'},
+        {name: 'Iron Man',
+        answer: 'ABC'},
+        {name: 'Thor',
+        answer: 'XYZ'},
+        {name: 'Hulk',
+        answer: 'RRR'},
+      ],
       toggleDisabledButton: [false, false, false, false],
       toggleHostScreen: true,
+      toggleHostQuestionScreen: false,
     }
     this._onPressButton = this._onPressButton.bind(this);
     this._onPressSubmit = this._onPressSubmit.bind(this);
@@ -43,7 +53,6 @@ class App extends Component{
   }
   
   _onPressButton(e, buttonName, buttonId) {
-    this._onPressBack()
     this.setState((state) => {
       const udpatedArray = state.toggleDisabledButton.map((item, j) => {
         if(j===buttonId) return true;
@@ -54,26 +63,36 @@ class App extends Component{
         toggleDisabledButton: udpatedArray,
         toggleUserScreen: true,
         buttonName: buttonName,
+        toggleHostScreen: !state.toggleHostScreen,
       }
     });
-    console.log(buttonId)
   }
   _onPressBack(){
     this.setState({
-      toggleHostScreen: !this.state.toggleHostScreen
+      toggleHostScreen: !this.state.toggleHostScreen,
+      toggleHostQuestionScreen: !this.state.toggleHostQuestionScreen
+
     })
   }
   _onPressSubmit(e, answer){
-    this.setState({
-      answers: this.state.answers.push(answer)
+    this.setState((state)=>{
+      const updatedanswers = state.answers.map((item) => {
+        if(item.name === 'Captain America') {
+          item.answer = answer
+        } else return null;
+      })
+      return {updatedanswers,
+        toggleHostQuestionScreen: !this.state.toggleHostQuestionScreen}
+      
     })
+    console.log(this.state.answers)
   }
 
   render() {
     const player = <Player players={this.state.players} /> 
     const question = <Question games={this.state.games} questionId={this.state.buttonName} submit={this._onPressSubmit} />
     const host = <Host games={this.state.games} click={this._onPressButton} disabled={this.state.toggleDisabledButton} />
-    const hostQuestion = <HostQuestion games={this.state.games} click={this._onPressBack} questionId={this.state.buttonName}/>
+    const hostQuestion = <HostQuestion games={this.state.games} toggle={this.state.toggleHostQuestionScreen} click={this._onPressBack} questionId={this.state.buttonName} playerAnswers={this.state.answers}/>
     return (
       <>
         <SafeAreaView>

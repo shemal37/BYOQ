@@ -31,7 +31,6 @@ const Player = (props) => {
                     <Text 
                         style={styles.tagline} key={i} 
                         numberOfLines={1}
-                        //ellipsizeMode
                     > 
                         {player.tagline} 
                     </Text>
@@ -42,7 +41,7 @@ const Player = (props) => {
         <View style={styles.buttonContainer}>
             <Button 
             style={styles.button}
-            title={'Let the battle begin!  🚀'}
+            title={'Let the battle begin!  🚀 '}
             type= "clear"
             titleStyle={{color:'#c75f46', fontSize:25, fontWeight:'bold',fontFamily: 'Futura-MediumItalic'}}
             > 
@@ -89,7 +88,7 @@ const styles = StyleSheet.create({
         tagline:{
         textAlign:'center',
         fontFamily: 'Futura',
-        color: '#c7ebb2', 
+        color: 'lightsalmon', 
         fontSize: 19,
         paddingTop: 9,
         paddingBottom:5,

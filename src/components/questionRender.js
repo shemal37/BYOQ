@@ -31,6 +31,7 @@ class Question extends Component {
         })
     console.log(this.state)
     } 
+    v
     render(){
         return(
             <>
@@ -53,11 +54,11 @@ class Question extends Component {
                     }
                     <View style={styles.inputContainer} >
                         <TextInput 
-                            style={{ height: 40, borderColor: 'gray', borderWidth: 1, borderRadius:1, width:'85%' }}
+                            style={{ height: 45, borderColor: 'gray', borderWidth: 1, borderRadius:1, width:'85%' }}
                             onChangeText={this._onChange}
                             placeholder=' Enter your answer'
                             placeholderTextColor = "gray"
-                            
+                            color = {'white'}
                         />
                         <Button
                             style={{marginTop: 20,
@@ -87,7 +88,7 @@ const styles = StyleSheet.create({
         textAlign: 'center',
     },
     inputContainer:{
-        margin:20,
+        margin:15,
         flex:1,
         alignItems: 'center'
     },

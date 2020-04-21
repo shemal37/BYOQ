@@ -7,7 +7,7 @@ import {
 } from 'react-native';
 import {Button} from 'react-native-elements';
 
-const array = [ '#88b3a5', 'goldenrod', '#9ed4e8','lightsalmon', 'plum']
+const array = [ '#88b3a5', '#ebc86a', '#9ed4e8','lightsalmon', 'lightgoldenrodyellow']
 
 const Host = (props) => {
     return(

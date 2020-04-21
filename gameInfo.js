@@ -42,4 +42,11 @@ export const players = [
         name:'Hulk',
         tagline: 'Hulk Smash'
     },
-]
+];
+
+export const playerAnswers = [
+    {
+        name:'Captain America',
+        answer: ''
+    }
+];
